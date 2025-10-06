@@ -1,0 +1,1 @@
+Mirror of your site structure — placeholder files. Copy into your webroot and replace placeholders with actual content.
