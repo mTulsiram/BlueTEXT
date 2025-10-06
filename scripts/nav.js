@@ -36,6 +36,16 @@
     }
   });
 
+  // ensure mega menu buttons update aria-expanded
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('.drop-btn');
+    if(btn){
+      var parent = btn.closest('.dropdown');
+      var expanded = parent && parent.classList.contains('open');
+      try{ btn.setAttribute('aria-expanded', expanded? 'true' : 'false'); }catch(_){}
+    }
+  });
+
   // keyboard support for dropdown buttons
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') document.querySelectorAll('.dropdown').forEach(function(d){ d.classList.remove('open'); });

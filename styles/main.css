@@ -55,8 +55,8 @@ header h1{font-size:1.125rem;margin:0}
 .topbar-inner{display:flex;align-items:center;gap:1rem;padding:.5rem 0}
 .brand-link{display:flex;align-items:center;gap:.5rem;color:var(--text);text-decoration:none}
 .logo{background:var(--accent);color:#fff;padding:.25rem .5rem;border-radius:4px;font-weight:700}
-.search-wrap{flex:1}
-.search-form{display:flex;align-items:center;max-width:520px}
+.search-center{flex:1;display:flex;justify-content:center}
+.search-form{display:flex;align-items:center;max-width:620px}
 .search-form input{flex:1;padding:.5rem;border:1px solid #ddd;border-radius:4px 0 0 4px}
 .search-form button{padding:.5rem;border:1px solid #ddd;border-left:0;border-radius:0 4px 4px 0;background:#f7f7f7}
 
@@ -75,11 +75,11 @@ main{flex:1}
 footer{margin-top:auto}
 .top-actions a{margin-left:1rem;color:var(--text);text-decoration:none}
 
-.topnav{background:#222;color:#fff}
+.topnav{background:#111;color:#fff}
 .topnav-inner{display:flex;align-items:center;padding:.5rem 0}
-.category-nav{display:flex;flex-wrap:nowrap;gap:1rem}
-.category-nav a{color:#fff;text-decoration:none;padding:.5rem .5rem}
-.category-nav a:hover{background:rgba(255,255,255,0.03)}
+.category-nav{display:flex;flex-wrap:nowrap;gap:1rem;align-items:center}
+.category-nav a{color:#fff;text-decoration:none;padding:.6rem .75rem}
+.category-nav a:hover{background:rgba(255,255,255,0.03);border-radius:4px}
 
 @media(max-width:767px){
 	.category-nav{overflow:auto;padding:0 0.5rem}
@@ -93,6 +93,17 @@ footer{margin-top:auto}
 .dropdown-menu a{display:block;padding:.4rem .6rem;color:var(--text);text-decoration:none;border-radius:4px}
 .dropdown-menu a:hover{background:rgba(0,0,0,0.04)}
 .dropdown.open .dropdown-menu{display:block}
+
+/* Mega menu styling */
+.mega .mega-menu{position:absolute;left:0;right:0;top:calc(100% + .25rem);background:#fff;color:var(--text);padding:1rem 0;border-top:4px solid var(--accent);box-shadow:0 12px 48px rgba(8,8,8,0.12);display:none}
+.mega.open .mega-menu{display:block}
+.mega-inner{display:flex;gap:2rem}
+.mega-col{flex:1}
+.mega-col h4{margin-top:0}
+.mega-col ul{padding:0;margin:0}
+.mega-col li{list-style:none}
+.mega-col a{display:block;padding:.25rem 0;color:var(--text);text-decoration:none}
+.mega-col a:hover{text-decoration:underline}
 
 /* Desktop: show dropdown on hover for convenience */
 .category-nav .dropdown:hover .dropdown-menu{display:block}

@@ -1,71 +1,74 @@
 <header>
-			<div class="topbar">
-				<div class="container topbar-inner">
-					<div class="brand">
-						<a href="/" class="brand-link"><span class="logo">B</span><span class="brand-name">BlueTEXT</span></a>
-					</div>
+				<div class="topbar dev-topbar">
+					<div class="container topbar-inner dev-topbar-inner">
+						<div class="brand">
+							<a href="index.html" class="brand-link"><span class="logo">B</span><span class="brand-name">BlueTEXT</span></a>
+						</div>
 
-					<div class="search-wrap">
-								<div class="search-compact">
-									<button id="search-toggle" aria-label="Open search">🔍</button>
-									<form action="/" method="get" class="search-form" onsubmit="return false;">
-										<input type="search" name="q" placeholder="Search tools, tutorials..." aria-label="Search" />
-										<button type="submit" aria-label="Search">🔍</button>
-									</form>
-								</div>
-					</div>
+						<div class="search-center">
+							<form action="/" method="get" class="search-form center" onsubmit="return false;">
+								<input type="search" name="q" placeholder="Search tools, tutorials..." aria-label="Search" />
+								<button type="submit" aria-label="Search">🔍</button>
+							</form>
+						</div>
 
-							<div class="top-actions">
-								<button id="dark-toggle" aria-label="Toggle dark mode">🌙</button>
-								<a href="/contact.html">Contact</a>
-								<a href="/apps/">Apps</a>
-							</div>
-				</div>
-			</div>
-
-			<div class="topnav">
-				<div class="container topnav-inner">
-							<nav class="category-nav" aria-label="Primary">
-							<a href="index.html">Home</a>
+						<div class="top-actions">
+							<button id="dark-toggle" aria-label="Toggle dark mode">🌙</button>
+							<a href="contact.html">Contact</a>
 							<a href="apps/">Apps</a>
-								<div class="dropdown">
-									<button class="drop-btn" aria-expanded="false">Tools ▾</button>
-									<ul class="dropdown-menu" aria-label="Tools submenu">
-										<li><a href="tools/calculator.html">Calculator</a></li>
-										<li><a href="tools/code-converter.html">Code Converter</a></li>
-										<li><a href="tools/color-picker.html">Color Picker</a></li>
-										<li><a href="tools/json-formatter.html">JSON Formatter</a></li>
-										<li><a href="tools/markdown-editor.html">Markdown Editor</a></li>
-										<li><a href="tools/password-generator.html">Password Generator</a></li>
-										<li><a href="tools/playground.html">Playground</a></li>
-										<li><a href="tools/regex-tester.html">Regex Tester</a></li>
-										<li><a href="tools/stopwatch.html">Stopwatch</a></li>
-										<li><a href="tools/timer.html">Timer</a></li>
-										<li><a href="tools/todo-list.html">Todo List</a></li>
-										<li><a href="tools/unit-converter.html">Unit Converter</a></li>
-									</ul>
-								</div>
-
-								<div class="dropdown">
-									<button class="drop-btn" aria-expanded="false">Games ▾</button>
-									<ul class="dropdown-menu" aria-label="Games submenu">
-										<li><a href="games/2048.html">2048</a></li>
-										<li><a href="games/breakout.html">Breakout</a></li>
-										<li><a href="games/connect4.html">Connect 4</a></li>
-										<li><a href="games/guess-number.html">Guess Number</a></li>
-										<li><a href="games/memory.html">Memory</a></li>
-										<li><a href="games/minesweeper.html">Minesweeper</a></li>
-										<li><a href="games/rock-paper-scissors.html">Rock Paper Scissors</a></li>
-										<li><a href="games/snake.html">Snake</a></li>
-										<li><a href="games/tictactoe.html">Tic Tac Toe</a></li>
-									</ul>
-								</div>
-
-								<a href="/blog/">Blog</a>
-								<a href="/resources.html">Resources</a>
-								<a href="/wiki/">Guides</a>
-								<a href="/shop/">Shop</a>
-							</nav>
+						</div>
+					</div>
 				</div>
-			</div>
+
+				<div class="topnav dev-topnav">
+					<div class="container topnav-inner">
+						<nav class="category-nav" aria-label="Primary">
+							<div class="dropdown mega">
+								<button class="drop-btn" aria-expanded="false">Products ▾</button>
+								<div class="mega-menu">
+									<div class="mega-inner container">
+										<div class="mega-col">
+											<h4>Platforms</h4>
+											<ul>
+												<li><a href="#">Android</a></li>
+												<li><a href="#">Chrome</a></li>
+												<li><a href="#">Firebase</a></li>
+											</ul>
+										</div>
+										<div class="mega-col">
+											<h4>Tools</h4>
+											<ul>
+												<li><a href="tools/markdown-editor.html">Markdown Editor</a></li>
+												<li><a href="tools/calculator.html">Calculator</a></li>
+												<li><a href="tools/json-formatter.html">JSON Formatter</a></li>
+											</ul>
+										</div>
+										<div class="mega-col">
+											<h4>Integrations</h4>
+											<ul>
+												<li><a href="#">Google Ads</a></li>
+												<li><a href="#">AdMob</a></li>
+											</ul>
+										</div>
+										<div class="mega-col">
+											<h4>Learn</h4>
+											<ul>
+												<li><a href="wiki/">Guides</a></li>
+												<li><a href="blog/">Blog</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<a href="apps/">Apps</a>
+							<a href="tools/">Tools</a>
+							<a href="games/">Games</a>
+							<a href="blog/">Blog</a>
+							<a href="resources.html">Resources</a>
+							<a href="wiki/">Guides</a>
+							<a href="shop/">Shop</a>
+						</nav>
+					</div>
+				</div>
 </header>
