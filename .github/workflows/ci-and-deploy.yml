@@ -1,0 +1,41 @@
+name: CI & optional deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  lint-html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install htmlhint
+        run: npm install -g htmlhint
+      - name: Run htmlhint
+        run: |
+          htmlhint "**/*.html" || true
+
+# Optional: automatic deploy to gh-pages
+# To enable, uncomment the deploy job and set up a GitHub Pages branch or configure the action below.
+#deploy:
+#  needs: lint-html
+#  runs-on: ubuntu-latest
+#  steps:
+#    - uses: actions/checkout@v4
+#      with:
+#        persist-credentials: false
+#    - name: Setup Node
+#      uses: actions/setup-node@v4
+#      with:
+#        node-version: '18'
+#    - name: Build (if you have a build step)
+#      run: echo "No build step configured"
+#    - name: Deploy to gh-pages
+#      uses: peaceiris/actions-gh-pages@v3
+#      with:
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+#        publish_dir: ./
