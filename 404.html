@@ -8,11 +8,18 @@
       (function(){
         try{
           var path = window.location.pathname;
-          fetch('/index.html').then(function(r){ return r.text(); }).then(function(html){
-            document.open(); document.write(html); document.close();
-            // update history so SPA sees original path
-            history.replaceState({}, '', path);
-          }).catch(function(){ console.error('Failed to load index.html'); });
+          var candidates = ['index.html', '../index.html', '../../index.html', '/index.html'];
+          (function tryFetch(i){
+            if(i>=candidates.length) return;
+            fetch(candidates[i]).then(function(r){
+              if(!r.ok) throw new Error('not ok');
+              return r.text();
+            }).then(function(html){
+              document.open(); document.write(html); document.close();
+              // update history so SPA sees original path
+              history.replaceState({}, '', path);
+            }).catch(function(){ tryFetch(i+1); });
+          })(0);
         }catch(e){ console.error(e); }
       })();
     </script>

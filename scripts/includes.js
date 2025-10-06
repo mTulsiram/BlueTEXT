@@ -38,4 +38,7 @@
   if(document.readyState==='loading'){
     document.addEventListener('DOMContentLoaded', inject);
   } else inject();
+
+  // expose for other scripts (router) to re-run includes after injecting fragments
+  try{ window.runIncludes = inject; }catch(e){ /* ignore */ }
 })();
