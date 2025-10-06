@@ -94,8 +94,16 @@ footer{margin-top:auto}
 .dropdown-menu a:hover{background:rgba(0,0,0,0.04)}
 .dropdown.open .dropdown-menu{display:block}
 
+/* Desktop: show dropdown on hover for convenience */
+.category-nav .dropdown:hover .dropdown-menu{display:block}
+
+/* When dropdown is inside dark topnav, make its bg dark */
+.topnav .dropdown-menu{background:#333;color:#fff}
+.topnav .dropdown-menu a{color:#fff}
+
 /* Footer stickiness fix */
-html,body{height:100%}
+/* Clear redundant height rules and use robust sticky footer */
+html{height:100%}
 body{display:flex;flex-direction:column;min-height:100vh}
 main{flex:1}
 footer{background:#f5f5f5;padding:1rem 0;margin-top:0}
