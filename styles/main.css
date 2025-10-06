@@ -40,6 +40,27 @@ header h1{font-size:1.125rem;margin:0}
 	.site-nav{display:flex}
 }
 
+/* Top bar (light) and top nav (dark) similar to W3Schools */
+.topbar{background:#fff;border-bottom:1px solid #eee}
+.topbar-inner{display:flex;align-items:center;gap:1rem;padding:.5rem 0}
+.brand-link{display:flex;align-items:center;gap:.5rem;color:var(--text);text-decoration:none}
+.logo{background:var(--accent);color:#fff;padding:.25rem .5rem;border-radius:4px;font-weight:700}
+.search-wrap{flex:1}
+.search-form{display:flex;align-items:center;max-width:520px}
+.search-form input{flex:1;padding:.5rem;border:1px solid #ddd;border-radius:4px 0 0 4px}
+.search-form button{padding:.5rem;border:1px solid #ddd;border-left:0;border-radius:0 4px 4px 0;background:#f7f7f7}
+.top-actions a{margin-left:1rem;color:var(--text);text-decoration:none}
+
+.topnav{background:#222;color:#fff}
+.topnav-inner{display:flex;align-items:center;padding:.5rem 0}
+.category-nav{display:flex;flex-wrap:nowrap;gap:1rem}
+.category-nav a{color:#fff;text-decoration:none;padding:.5rem .5rem}
+.category-nav a:hover{background:rgba(255,255,255,0.03)}
+
+@media(max-width:767px){
+	.category-nav{overflow:auto;padding:0 0.5rem}
+}
+
 nav{margin-left:1rem}
 nav a{color:inherit;text-decoration:none;margin-left:1rem;font-weight:600}
 
