@@ -2,23 +2,42 @@
 (function(){
 	'use strict';
 
-	var routes = {
-		'/': function(){ loadPage('index.html'); },
-		'/index.html': function(){ loadPage('index.html'); }
-		// add more static mappings if you want custom handling, e.g.
-		// '/apps/': function(){ loadPage('apps/index.html'); }
-	};
+		var cache = {}; // simple in-memory cache: path -> html string
+
+		var routes = {
+			'/': function(){ loadPage('index.html'); },
+			'/index.html': function(){ loadPage('index.html'); },
+			// explicit common mappings to reduce fetch attempts
+			'/apps/': function(){ loadPage('apps/index.html'); },
+			'/games/': function(){ loadPage('games/index.html'); },
+			'/tools/': function(){ loadPage('tools/index.html'); },
+			'/courses/': function(){ loadPage('courses/index.html'); },
+			'/blog/': function(){ loadPage('blog/index.html'); },
+			'/shop/': function(){ loadPage('shop/index.html'); },
+		};
 
 	function isInternalLink(a){
 		return a.hostname === location.hostname && a.protocol.indexOf('http')===0;
 	}
 
-	function loadPage(url){
-		// fetch the HTML fragment or full page and inject into <main>
-		fetch(url).then(function(r){
-			if(!r.ok) throw new Error('fetch failed');
-			return r.text();
-		}).then(function(html){
+		function loadPage(url){
+			if(cache[url]){
+				injectHTML(cache[url]);
+				return Promise.resolve(cache[url]);
+			}
+			return fetch(url).then(function(r){
+				if(!r.ok) throw new Error('fetch failed');
+				return r.text();
+			}).then(function(html){
+				cache[url] = html;
+				injectHTML(html);
+				return html;
+			}).catch(function(err){
+				console.warn('Could not load', url, err);
+			});
+		}
+
+		function injectHTML(html){
 			var parser = new DOMParser();
 			var doc = parser.parseFromString(html, 'text/html');
 			var main = document.querySelector('main');
@@ -27,12 +46,8 @@
 				if(newMain) main.innerHTML = newMain.innerHTML;
 				else main.innerHTML = html;
 			}
-			// re-run includes (header/footer) if necessary
 			if(window.runIncludes) window.runIncludes();
-		}).catch(function(){
-			console.warn('Could not load', url);
-		});
-	}
+		}
 
 	function handleLinkClick(e){
 		if(e.defaultPrevented) return;
@@ -58,24 +73,30 @@
 			var tryPaths = [path];
 			if(path.endsWith('/')) tryPaths.unshift(path + 'index.html');
 			tryPaths.push(path.replace(/\/$/, '') + '.html');
-			(function tryNext(i){
-				if(i>=tryPaths.length) return;
-				fetch(tryPaths[i]).then(function(r){
-					if(!r.ok) throw new Error('not found');
-					return r.text();
-				}).then(function(text){
-					var parser = new DOMParser();
-					var doc = parser.parseFromString(text, 'text/html');
-					var main = document.querySelector('main');
-					if(main){
-						var newMain = doc.querySelector('main');
-						main.innerHTML = newMain ? newMain.innerHTML : text;
-					}
-					if(window.runIncludes) window.runIncludes();
-				}).catch(function(){ tryNext(i+1); });
-			})(0);
+					(function tryNext(i){
+						if(i>=tryPaths.length){
+							renderNotFound();
+							return;
+						}
+						var p = tryPaths[i];
+						if(cache[p]){ injectHTML(cache[p]); return; }
+						fetch(p).then(function(r){
+							if(!r.ok) throw new Error('not found');
+							return r.text();
+						}).then(function(text){
+							cache[p] = text;
+							injectHTML(text);
+						}).catch(function(){ tryNext(i+1); });
+					})(0);
 		}
 	}
+
+			function renderNotFound(){
+				var main = document.querySelector('main');
+				if(main){
+					main.innerHTML = '<h2>Page not found</h2><p>The requested page could not be found.</p>';
+				}
+			}
 
 	window.addEventListener('popstate', function(){ routeTo(location.pathname); });
 	document.addEventListener('click', handleLinkClick);
