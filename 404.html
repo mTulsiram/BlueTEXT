@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url=/index.html">
+    <script>
+      // Fallback: fetch index.html and replace body so client-side router can pick up the route
+      (function(){
+        try{
+          var path = window.location.pathname;
+          fetch('/index.html').then(function(r){ return r.text(); }).then(function(html){
+            document.open(); document.write(html); document.close();
+            // update history so SPA sees original path
+            history.replaceState({}, '', path);
+          }).catch(function(){ console.error('Failed to load index.html'); });
+        }catch(e){ console.error(e); }
+      })();
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>
