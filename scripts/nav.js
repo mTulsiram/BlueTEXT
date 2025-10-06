@@ -22,6 +22,25 @@
     }
   });
 
+  // dropdown toggle
+  document.addEventListener('click', function(e){
+    var db = e.target.closest('.drop-btn');
+    if(db){
+      var parent = db.closest('.dropdown');
+      if(parent) parent.classList.toggle('open');
+      // close other open dropdowns
+      document.querySelectorAll('.dropdown').forEach(function(d){ if(d!==parent) d.classList.remove('open'); });
+    } else {
+      // close dropdowns when clicking outside
+      if(!e.target.closest('.dropdown')) document.querySelectorAll('.dropdown').forEach(function(d){ d.classList.remove('open'); });
+    }
+  });
+
+  // keyboard support for dropdown buttons
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') document.querySelectorAll('.dropdown').forEach(function(d){ d.classList.remove('open'); });
+  });
+
   // dark mode toggle
   function setDark(on){
     if(on) document.documentElement.classList.add('dark');
