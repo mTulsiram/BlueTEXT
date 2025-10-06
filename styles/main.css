@@ -6,6 +6,13 @@
 	--max-width: 1100px;
 }
 
+/* Dark mode variables */
+:root.dark{
+	--bg: #0f1720;
+	--text: #e6eef6;
+	--accent: #4aa3ff;
+}
+
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -15,6 +22,9 @@ body{
 	background:var(--bg);
 	-webkit-font-smoothing:antialiased;
 }
+
+/* Use Google font */
+body{font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
 
 .container{
 	width:100%;
@@ -49,6 +59,20 @@ header h1{font-size:1.125rem;margin:0}
 .search-form{display:flex;align-items:center;max-width:520px}
 .search-form input{flex:1;padding:.5rem;border:1px solid #ddd;border-radius:4px 0 0 4px}
 .search-form button{padding:.5rem;border:1px solid #ddd;border-left:0;border-radius:0 4px 4px 0;background:#f7f7f7}
+
+/* Compact search: hide form until toggled */
+.search-compact{position:relative}
+.search-compact .search-form{display:none;position:absolute;right:0;top:calc(100% + .25rem);background:var(--bg);padding:.5rem;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,0.08);z-index:50}
+.search-compact.open .search-form{display:flex}
+
+/* Sticky topnav */
+.topnav{position:sticky;top:0;z-index:40}
+
+/* Sticky footer */
+html{height:100%}
+body{display:flex;flex-direction:column;min-height:100%}
+main{flex:1}
+footer{margin-top:auto}
 .top-actions a{margin-left:1rem;color:var(--text);text-decoration:none}
 
 .topnav{background:#222;color:#fff}

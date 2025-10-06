@@ -13,6 +13,32 @@
     var btn = e.target.closest('#nav-toggle');
     if(btn) { e.preventDefault(); toggleNav(); }
   });
+  // search toggle
+  document.addEventListener('click', function(e){
+    var sbtn = e.target.closest('#search-toggle');
+    if(sbtn){
+      var wrapper = document.querySelector('.search-compact');
+      if(wrapper) wrapper.classList.toggle('open');
+    }
+  });
+
+  // dark mode toggle
+  function setDark(on){
+    if(on) document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
+    try{ localStorage.setItem('prefers-dark', on? '1' : '0'); }catch(e){}
+  }
+  document.addEventListener('click', function(e){
+    var d = e.target.closest('#dark-toggle');
+    if(d){ var isDark = document.documentElement.classList.contains('dark'); setDark(!isDark); }
+  });
+  // initialize dark preference
+  try{
+    var pref = localStorage.getItem('prefers-dark');
+    if(pref==='1') setDark(true);
+    else if(pref==='0') setDark(false);
+    else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setDark(true);
+  }catch(e){}
 
   // Simple lazy images using data-src
   function lazyLoad(){

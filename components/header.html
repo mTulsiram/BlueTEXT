@@ -6,16 +6,20 @@
 					</div>
 
 					<div class="search-wrap">
-						<form action="/" method="get" class="search-form" onsubmit="return false;">
-							<input type="search" name="q" placeholder="Search tools, tutorials..." aria-label="Search" />
-							<button type="submit" aria-label="Search">🔍</button>
-						</form>
+								<div class="search-compact">
+									<button id="search-toggle" aria-label="Open search">🔍</button>
+									<form action="/" method="get" class="search-form" onsubmit="return false;">
+										<input type="search" name="q" placeholder="Search tools, tutorials..." aria-label="Search" />
+										<button type="submit" aria-label="Search">🔍</button>
+									</form>
+								</div>
 					</div>
 
-					<div class="top-actions">
-						<a href="/contact.html">Contact</a>
-						<a href="/apps/">Apps</a>
-					</div>
+							<div class="top-actions">
+								<button id="dark-toggle" aria-label="Toggle dark mode">🌙</button>
+								<a href="/contact.html">Contact</a>
+								<a href="/apps/">Apps</a>
+							</div>
 				</div>
 			</div>
 
