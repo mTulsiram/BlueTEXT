@@ -1,1 +1,98 @@
 <h1>Timer</h1>
+<div class="tool-container" style="max-width: 400px; margin: 0 auto; text-align: center; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+
+    <div id="timer-display" style="font-size: 5rem; font-family: monospace; font-weight: bold; margin-bottom: 2rem; color: #333;">00:00</div>
+
+    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
+        <input type="number" id="minutes-input" min="0" max="60" value="5" style="width: 80px; padding: .5rem; font-size: 1.2rem; text-align: center; border: 1px solid #ccc; border-radius: 4px;" placeholder="Min">
+        <span style="font-size: 1.5rem; font-weight: bold; align-self: center;">:</span>
+        <input type="number" id="seconds-input" min="0" max="59" value="0" style="width: 80px; padding: .5rem; font-size: 1.2rem; text-align: center; border: 1px solid #ccc; border-radius: 4px;" placeholder="Sec">
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 1rem;">
+        <button id="start-btn" onclick="startTimer()" style="padding: .75rem 1.5rem; font-size: 1.1rem; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; width: 120px;">Start</button>
+        <button onclick="resetTimer()" style="padding: .75rem 1.5rem; font-size: 1.1rem; background: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; width: 120px;">Reset</button>
+    </div>
+</div>
+
+<script>
+    let timerInterval;
+    let totalSeconds = 0;
+    let isRunning = false;
+    let display = document.getElementById('timer-display');
+    let startBtn = document.getElementById('start-btn');
+    let minInput = document.getElementById('minutes-input');
+    let secInput = document.getElementById('seconds-input');
+
+    function formatTime(totalSeconds) {
+        const m = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+        const s = String(totalSeconds % 60).padStart(2, '0');
+        return `${m}:${s}`;
+    }
+
+    function updateDisplay() {
+        display.textContent = formatTime(totalSeconds);
+    }
+
+    window.startTimer = function() {
+        if (!isRunning) {
+            // Read inputs
+            const m = parseInt(minInput.value) || 0;
+            const s = parseInt(secInput.value) || 0;
+            totalSeconds = m * 60 + s;
+
+            if (totalSeconds <= 0) {
+                alert('Please enter a valid time greater than zero.');
+                return;
+            }
+
+            timerInterval = setInterval(() => {
+                totalSeconds--;
+                updateDisplay();
+
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    startBtn.textContent = 'Start';
+                    startBtn.style.background = '#4CAF50';
+                    display.style.color = '#ff4d4d'; // Turn red on finish
+                    alert('Time is up!'); // Simple native alert
+                }
+            }, 1000); // Tick every 1 second
+
+            isRunning = true;
+            startBtn.textContent = 'Pause';
+            startBtn.style.background = '#ff9800'; // Orange for Pause
+            display.style.color = '#333'; // Reset color
+        } else {
+            // Pause
+            clearInterval(timerInterval);
+            isRunning = false;
+            startBtn.textContent = 'Resume';
+            startBtn.style.background = '#4CAF50';
+
+            // Save remaining time to inputs so resume works logically
+            minInput.value = Math.floor(totalSeconds / 60);
+            secInput.value = totalSeconds % 60;
+        }
+    };
+
+    window.resetTimer = function() {
+        clearInterval(timerInterval);
+        isRunning = false;
+        totalSeconds = 0;
+
+        minInput.value = 5; // Reset to default 5 mins
+        secInput.value = 0;
+        updateDisplay();
+
+        startBtn.textContent = 'Start';
+        startBtn.style.background = '#4CAF50';
+        display.style.color = '#333';
+    };
+
+    // Initial display
+    minInput.addEventListener('input', () => { totalSeconds = parseInt(minInput.value)*60 + parseInt(secInput.value); updateDisplay(); });
+    secInput.addEventListener('input', () => { totalSeconds = parseInt(minInput.value)*60 + parseInt(secInput.value); updateDisplay(); });
+    updateDisplay();
+</script>
