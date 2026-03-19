@@ -2,9 +2,9 @@
 (function(){
 	'use strict';
 
-		var cache = {}; // simple in-memory cache: path -> html string
+		const cache = {}; // simple in-memory cache: path -> html string
 
-		var routes = {
+		const routes = {
 			'/': function(){ loadPage('index.html'); },
 			'/index.html': function(){ loadPage('index.html'); },
 			// explicit common mappings to reduce fetch attempts
@@ -38,11 +38,11 @@
 		}
 
 		function injectHTML(html){
-			var parser = new DOMParser();
-			var doc = parser.parseFromString(html, 'text/html');
-			var main = document.querySelector('main');
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(html, 'text/html');
+			const main = document.querySelector('main');
 			if(main){
-				var newMain = doc.querySelector('main');
+				const newMain = doc.querySelector('main');
 				if(newMain) main.innerHTML = newMain.innerHTML;
 				else main.innerHTML = html;
 			}
@@ -51,16 +51,16 @@
 
 	function handleLinkClick(e){
 		if(e.defaultPrevented) return;
-		var a = e.target.closest('a');
+		const a = e.target.closest('a');
 		if(!a) return;
 		if(!isInternalLink(a)) return; // external
-		var href = a.getAttribute('href');
+		const href = a.getAttribute('href');
 		if(!href || href.indexOf('mailto:')===0 || href.indexOf('tel:')===0) return;
 		// allow hash links and files
 		if(href.indexOf('#')===0 || href.match(/\.(png|jpg|jpeg|svg|pdf|zip)$/i)) return;
 
 		e.preventDefault();
-		var path = new URL(href, location.href).pathname;
+		const path = new URL(href, location.href).pathname;
 		history.pushState({}, '', path);
 		routeTo(path);
 	}
@@ -70,7 +70,7 @@
 		else{
 			// default: try to load the matching file
 			// if path ends with '/', try path + 'index.html'
-			var tryPaths = [path];
+			const tryPaths = [path];
 			if(path.endsWith('/')) tryPaths.unshift(path + 'index.html');
 			tryPaths.push(path.replace(/\/$/, '') + '.html');
 					(function tryNext(i){
@@ -78,7 +78,7 @@
 							renderNotFound();
 							return;
 						}
-						var p = tryPaths[i];
+						const p = tryPaths[i];
 						if(cache[p]){ injectHTML(cache[p]); return; }
 						fetch(p).then(function(r){
 							if(!r.ok) throw new Error('not found');
@@ -92,7 +92,7 @@
 	}
 
 			function renderNotFound(){
-				var main = document.querySelector('main');
+				const main = document.querySelector('main');
 				if(main){
 					main.innerHTML = '<h2>Page not found</h2><p>The requested page could not be found.</p>';
 				}
