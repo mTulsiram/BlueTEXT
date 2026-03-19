@@ -98,12 +98,18 @@
 				}
 			}
 
-	window.addEventListener('popstate', function(){ routeTo(location.pathname); });
-	document.addEventListener('click', handleLinkClick);
+	if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+		window.addEventListener('popstate', function(){ routeTo(location.pathname); });
+		document.addEventListener('click', handleLinkClick);
 
-	// initial routing on load
-	document.addEventListener('DOMContentLoaded', function(){
-		routeTo(location.pathname);
-	});
+		// initial routing on load
+		document.addEventListener('DOMContentLoaded', function(){
+			routeTo(location.pathname);
+		});
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = { isInternalLink: isInternalLink };
+	}
 
 })();
