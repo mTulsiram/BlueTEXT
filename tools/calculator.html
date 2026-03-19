@@ -1,1 +1,130 @@
 <h1>Calculator</h1>
+<style>
+.calculator {
+    max-width: 320px;
+    margin: 0 auto;
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.calc-display {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    text-align: right;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+}
+.calc-keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+.calc-keys button {
+    padding: 1rem;
+    font-size: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+.calc-keys button:hover {
+    background: #eee;
+}
+.calc-keys button.operator {
+    background: #f0f0f0;
+    color: var(--accent);
+    font-weight: bold;
+}
+.calc-keys button.operator:hover {
+    background: #e0e0e0;
+}
+.calc-keys button.equals {
+    background: var(--accent);
+    color: #fff;
+    grid-column: span 2;
+}
+.calc-keys button.equals:hover {
+    background: #0960b3;
+}
+.calc-keys button.clear {
+    background: #ff4d4d;
+    color: #fff;
+}
+.calc-keys button.clear:hover {
+    background: #e60000;
+}
+</style>
+
+<div class="calculator">
+    <input type="text" class="calc-display" id="calc-display" disabled value="0">
+    <div class="calc-keys">
+        <button class="clear" onclick="clearCalc()">C</button>
+        <button onclick="input('(')">(</button>
+        <button onclick="input(')')">)</button>
+        <button class="operator" onclick="input('/')">/</button>
+
+        <button onclick="input('7')">7</button>
+        <button onclick="input('8')">8</button>
+        <button onclick="input('9')">9</button>
+        <button class="operator" onclick="input('*')">*</button>
+
+        <button onclick="input('4')">4</button>
+        <button onclick="input('5')">5</button>
+        <button onclick="input('6')">6</button>
+        <button class="operator" onclick="input('-')">-</button>
+
+        <button onclick="input('1')">1</button>
+        <button onclick="input('2')">2</button>
+        <button onclick="input('3')">3</button>
+        <button class="operator" onclick="input('+')">+</button>
+
+        <button onclick="input('0')">0</button>
+        <button onclick="input('.')">.</button>
+        <button class="equals" onclick="calculate()">=</button>
+    </div>
+</div>
+
+<script>
+    let currentInput = '0';
+    let display = document.getElementById('calc-display');
+
+    window.input = function(val) {
+        if (currentInput === '0' && val !== '.') {
+            currentInput = val;
+        } else {
+            currentInput += val;
+        }
+        display.value = currentInput;
+    };
+
+    window.clearCalc = function() {
+        currentInput = '0';
+        display.value = currentInput;
+    };
+
+    window.calculate = function() {
+        try {
+            // Very strict allowlist for the mathematical expression
+            if (!/^[\d\.\+\-\*\/\(\)\s]*$/.test(currentInput)) {
+                throw new Error('Invalid input');
+            }
+            // Use Function instead of eval, wrapped in a strict execution context
+            // that doesn't leak globals or allow complex statements
+            let result = new Function('return ' + currentInput)();
+            if (!isFinite(result)) {
+                result = 'Error';
+            }
+            currentInput = String(result);
+            display.value = currentInput;
+        } catch (e) {
+            currentInput = 'Error';
+            display.value = currentInput;
+        }
+    };
+</script>

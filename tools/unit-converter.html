@@ -1,1 +1,155 @@
 <h1>Unit Converter</h1>
+<div class="tool-container" style="max-width: 600px; margin: 0 auto; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+
+    <div style="display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+
+        <div style="flex: 1 1 200px;">
+            <label for="category-select" style="display:block;margin-bottom:.5rem;font-weight:bold;">Category</label>
+            <select id="category-select" style="width:100%; padding:.75rem; border:1px solid #ccc; border-radius:4px; font-size:1.1rem; background:#f9f9f9; appearance:none;">
+                <option value="length">Length</option>
+                <option value="weight">Weight / Mass</option>
+                <option value="temperature">Temperature</option>
+                <option value="speed">Speed</option>
+            </select>
+        </div>
+
+        <div style="flex: 1 1 200px;">
+            <label for="from-value" style="display:block;margin-bottom:.5rem;font-weight:bold;">From</label>
+            <div style="display: flex; gap: .5rem; margin-bottom: 1rem;">
+                <input type="number" id="from-value" value="1" style="flex:1; padding:.75rem; border:1px solid #ccc; border-radius:4px; font-size:1.1rem;">
+                <select id="from-unit" style="padding:.75rem; border:1px solid #ccc; border-radius:4px; font-size:1.1rem; background:#f9f9f9;"></select>
+            </div>
+
+            <div style="text-align: center; margin: 1rem 0;">
+                <button onclick="swapUnits()" style="background:transparent; border:none; font-size:1.5rem; color:var(--accent); cursor:pointer;" title="Swap Units">⇅</button>
+            </div>
+
+            <label for="to-value" style="display:block;margin-bottom:.5rem;font-weight:bold;">To</label>
+            <div style="display: flex; gap: .5rem;">
+                <input type="number" id="to-value" readonly style="flex:1; padding:.75rem; border:1px solid #ddd; border-radius:4px; font-size:1.1rem; background:#eee;">
+                <select id="to-unit" style="padding:.75rem; border:1px solid #ccc; border-radius:4px; font-size:1.1rem; background:#f9f9f9;"></select>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const categorySelect = document.getElementById('category-select');
+    const fromValueInput = document.getElementById('from-value');
+    const toValueInput = document.getElementById('to-value');
+    const fromUnitSelect = document.getElementById('from-unit');
+    const toUnitSelect = document.getElementById('to-unit');
+
+    const units = {
+        length: {
+            Meter: 1,
+            Kilometer: 1000,
+            Centimeter: 0.01,
+            Millimeter: 0.001,
+            Mile: 1609.34,
+            Yard: 0.9144,
+            Foot: 0.3048,
+            Inch: 0.0254
+        },
+        weight: {
+            Kilogram: 1,
+            Gram: 0.001,
+            Milligram: 0.000001,
+            MetricTon: 1000,
+            Pound: 0.453592,
+            Ounce: 0.0283495
+        },
+        temperature: {
+            // Temperature requires special handling formulas
+            Celsius: 'C',
+            Fahrenheit: 'F',
+            Kelvin: 'K'
+        },
+        speed: {
+            'Meters per second': 1,
+            'Kilometers per hour': 0.277778,
+            'Miles per hour': 0.44704,
+            'Knots': 0.514444
+        }
+    };
+
+    function populateUnits(category) {
+        fromUnitSelect.innerHTML = '';
+        toUnitSelect.innerHTML = '';
+        const categoryUnits = Object.keys(units[category]);
+        categoryUnits.forEach(unit => {
+            const option1 = document.createElement('option');
+            option1.value = unit;
+            option1.textContent = unit;
+            fromUnitSelect.appendChild(option1);
+
+            const option2 = document.createElement('option');
+            option2.value = unit;
+            option2.textContent = unit;
+            toUnitSelect.appendChild(option2);
+        });
+
+        // Select distinct default 'to' unit if available
+        if (categoryUnits.length > 1) {
+            toUnitSelect.selectedIndex = 1;
+        }
+    }
+
+    function convert() {
+        const category = categorySelect.value;
+        const fromUnit = fromUnitSelect.value;
+        const toUnit = toUnitSelect.value;
+        const value = parseFloat(fromValueInput.value);
+
+        if (isNaN(value)) {
+            toValueInput.value = '';
+            return;
+        }
+
+        if (category === 'temperature') {
+            let result = value;
+            if (fromUnit === 'Celsius' && toUnit === 'Fahrenheit') { result = (value * 9/5) + 32; }
+            else if (fromUnit === 'Celsius' && toUnit === 'Kelvin') { result = value + 273.15; }
+            else if (fromUnit === 'Fahrenheit' && toUnit === 'Celsius') { result = (value - 32) * 5/9; }
+            else if (fromUnit === 'Fahrenheit' && toUnit === 'Kelvin') { result = (value - 32) * 5/9 + 273.15; }
+            else if (fromUnit === 'Kelvin' && toUnit === 'Celsius') { result = value - 273.15; }
+            else if (fromUnit === 'Kelvin' && toUnit === 'Fahrenheit') { result = (value - 273.15) * 9/5 + 32; }
+
+            toValueInput.value = result.toFixed(2);
+        } else {
+            // General conversion logic based on base unit ratios
+            const fromFactor = units[category][fromUnit];
+            const toFactor = units[category][toUnit];
+
+            // Convert to base, then to target
+            const baseValue = value * fromFactor;
+            const targetValue = baseValue / toFactor;
+
+            // Format to reasonable decimal places, handle very large/small numbers
+            toValueInput.value = parseFloat(targetValue.toPrecision(10));
+        }
+    }
+
+    window.swapUnits = function() {
+        const temp = fromUnitSelect.value;
+        fromUnitSelect.value = toUnitSelect.value;
+        toUnitSelect.value = temp;
+        convert();
+    };
+
+    // Event listeners
+    categorySelect.addEventListener('change', () => {
+        populateUnits(categorySelect.value);
+        convert();
+    });
+
+    fromValueInput.addEventListener('input', convert);
+    fromUnitSelect.addEventListener('change', convert);
+    toUnitSelect.addEventListener('change', convert);
+
+    // Initial setup
+    populateUnits(categorySelect.value);
+    convert();
+</script>
