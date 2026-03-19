@@ -1,6 +1,8 @@
 // Nav toggle and simple lazy-loader
 (function(){
   'use strict';
+  var dropdowns = document.getElementsByClassName('dropdown');
+
   function toggleNav(){
     var nav = document.getElementById('site-nav');
     if(!nav) return;
@@ -25,14 +27,19 @@
   // dropdown toggle
   document.addEventListener('click', function(e){
     var db = e.target.closest('.drop-btn');
+    var i;
     if(db){
       var parent = db.closest('.dropdown');
       if(parent) parent.classList.toggle('open');
       // close other open dropdowns
-      document.querySelectorAll('.dropdown').forEach(function(d){ if(d!==parent) d.classList.remove('open'); });
+      for(i=0; i<dropdowns.length; i++){
+        if(dropdowns[i] !== parent) dropdowns[i].classList.remove('open');
+      }
     } else {
       // close dropdowns when clicking outside
-      if(!e.target.closest('.dropdown')) document.querySelectorAll('.dropdown').forEach(function(d){ d.classList.remove('open'); });
+      if(!e.target.closest('.dropdown')){
+        for(i=0; i<dropdowns.length; i++) dropdowns[i].classList.remove('open');
+      }
     }
   });
 
@@ -48,7 +55,9 @@
 
   // keyboard support for dropdown buttons
   document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') document.querySelectorAll('.dropdown').forEach(function(d){ d.classList.remove('open'); });
+    if(e.key === 'Escape'){
+      for(var i=0; i<dropdowns.length; i++) dropdowns[i].classList.remove('open');
+    }
   });
 
   // dark mode toggle
