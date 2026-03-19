@@ -1,1 +1,18 @@
-<h1>Markdown Editor</h1>
+<main class="container">
+    <div class="tool-header">
+        <h1>Markdown Editor</h1>
+        <p class="lead">Write and preview Markdown in real-time.</p>
+    </div>
+
+    <div class="md-editor-wrapper">
+        <div class="md-pane md-input-pane">
+            <div class="md-pane-header">Editor</div>
+            <textarea id="md-input" placeholder="Type some markdown here...&#10;&#10;# Heading 1&#10;## Heading 2&#10;&#10;**Bold text** and *italic text*&#10;&#10;- List item 1&#10;- List item 2&#10;&#10;[Link](https://example.com)"></textarea>
+        </div>
+
+        <div class="md-pane md-preview-pane">
+            <div class="md-pane-header">Preview</div>
+            <div id="md-preview" class="md-preview-content"></div>
+        </div>
+    </div>
+</main>

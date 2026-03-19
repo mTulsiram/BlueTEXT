@@ -47,6 +47,8 @@
 				else main.innerHTML = html;
 			}
 			if(window.runIncludes) window.runIncludes();
+			// Dispatch a custom event so page-specific scripts can initialize
+			document.dispatchEvent(new Event('pageLoaded'));
 		}
 
 	function handleLinkClick(e){
