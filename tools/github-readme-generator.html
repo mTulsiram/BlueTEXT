@@ -1,75 +1,33 @@
 <h1>GitHub README Generator</h1>
 <div class="tool-container">
     <div class="row">
-        <div class="col" style="flex: 1 1 300px;">
-            <form id="readme-form" onsubmit="return false;">
-                <div style="margin-bottom: 1rem;">
-                    <label for="project-title" style="display:block;margin-bottom:.5rem;">Project Title</label>
-                    <input type="text" id="project-title" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:4px;" placeholder="e.g. My Awesome Project">
+        <div class="col">
+            <form id="readme-form">
+                <div>
+                    <label for="project-title">Project Title</label>
+                    <input type="text" id="project-title" placeholder="e.g. My Awesome Project">
                 </div>
-                <div style="margin-bottom: 1rem;">
-                    <label for="project-description" style="display:block;margin-bottom:.5rem;">Description</label>
-                    <textarea id="project-description" rows="3" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:4px;" placeholder="A brief description of what this project does and who it's for"></textarea>
+                <div>
+                    <label for="project-description">Description</label>
+                    <textarea id="project-description" rows="3" placeholder="A brief description of what this project does and who it's for"></textarea>
                 </div>
-                <div style="margin-bottom: 1rem;">
-                    <label for="project-installation" style="display:block;margin-bottom:.5rem;">Installation</label>
-                    <textarea id="project-installation" rows="3" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:4px;" placeholder="npm install my-project"></textarea>
+                <div>
+                    <label for="project-installation">Installation</label>
+                    <textarea id="project-installation" rows="3" placeholder="npm install my-project"></textarea>
                 </div>
-                <div style="margin-bottom: 1rem;">
-                    <label for="project-usage" style="display:block;margin-bottom:.5rem;">Usage</label>
-                    <textarea id="project-usage" rows="3" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:4px;" placeholder="import myProject from 'my-project'"></textarea>
+                <div>
+                    <label for="project-usage">Usage</label>
+                    <textarea id="project-usage" rows="3" placeholder="import myProject from 'my-project'"></textarea>
                 </div>
             </form>
         </div>
-        <div class="col" style="flex: 1 1 300px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.5rem;">
-                <label style="font-weight:bold;">Preview</label>
-                <button id="copy-btn" style="padding:.5rem 1rem; background:var(--accent); color:white; border:none; border-radius:4px; cursor:pointer;">Copy</button>
+        <div class="col">
+            <div>
+                <label>Preview</label>
+                <button id="copy-btn">Copy</button>
             </div>
-            <pre id="readme-preview" style="width:100%; height:calc(100% - 3rem); min-height:300px; padding:1rem; border:1px solid #ccc; border-radius:4px; background:#f5f5f5; overflow:auto; white-space:pre-wrap; margin:0;"></pre>
+            <pre id="readme-preview"></pre>
         </div>
     </div>
 </div>
 
-<script>
-(function(){
-    const form = document.getElementById('readme-form');
-    const inputs = form.querySelectorAll('input, textarea');
-    const preview = document.getElementById('readme-preview');
-    const copyBtn = document.getElementById('copy-btn');
-
-    function updatePreview() {
-        const title = document.getElementById('project-title').value || 'Project Title';
-        const description = document.getElementById('project-description').value || 'Project Description';
-        const installation = document.getElementById('project-installation').value || '';
-        const usage = document.getElementById('project-usage').value || '';
-
-        let markdown = `# ${title}\n\n`;
-        markdown += `${description}\n\n`;
-
-        if (installation) {
-            markdown += `## Installation\n\n\`\`\`bash\n${installation}\n\`\`\`\n\n`;
-        }
-
-        if (usage) {
-            markdown += `## Usage\n\n\`\`\`javascript\n${usage}\n\`\`\`\n\n`;
-        }
-
-        preview.textContent = markdown;
-    }
-
-    inputs.forEach(input => {
-        input.addEventListener('input', updatePreview);
-    });
-
-    copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(preview.textContent).then(() => {
-            const originalText = copyBtn.textContent;
-            copyBtn.textContent = 'Copied!';
-            setTimeout(() => { copyBtn.textContent = originalText; }, 2000);
-        });
-    });
-
-    updatePreview();
-})();
-</script>

@@ -1,81 +1,16 @@
 <h1>Stopwatch</h1>
-<div class="tool-container" style="max-width: 400px; margin: 0 auto; text-align: center; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+<div class="tool-container">
 
-    <div id="stopwatch-display" style="font-size: 4rem; font-family: monospace; font-weight: bold; margin-bottom: 2rem; color: #333;">00:00:00.00</div>
+    <div id="stopwatch-display">00:00:00.00</div>
 
-    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
-        <button id="start-btn" onclick="startStopwatch()" style="padding: .75rem 1.5rem; font-size: 1.1rem; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100px;">Start</button>
-        <button id="lap-btn" onclick="recordLap()" style="padding: .75rem 1.5rem; font-size: 1.1rem; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100px;">Lap</button>
-        <button onclick="resetStopwatch()" style="padding: .75rem 1.5rem; font-size: 1.1rem; background: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100px;">Reset</button>
+    <div>
+        <button id="start-btn">Start</button>
+        <button id="lap-btn">Lap</button>
+        <button>Reset</button>
     </div>
 
-    <div id="laps-container" style="text-align: left; max-height: 200px; overflow-y: auto; border-top: 1px solid #eee; padding-top: 1rem;">
-        <ul id="laps-list" style="list-style: none; padding: 0; margin: 0; font-family: monospace; font-size: 1.2rem; color: #666;"></ul>
+    <div id="laps-container">
+        <ul id="laps-list"></ul>
     </div>
 </div>
 
-<script>
-    let timerInterval;
-    let startTime;
-    let elapsedTime = 0;
-    let isRunning = false;
-    let lapCount = 0;
-
-    const display = document.getElementById('stopwatch-display');
-    const startBtn = document.getElementById('start-btn');
-    const lapBtn = document.getElementById('lap-btn');
-    const lapsList = document.getElementById('laps-list');
-
-    function formatTime(timeInMs) {
-        let date = new Date(timeInMs);
-        let h = String(Math.floor(timeInMs / 3600000)).padStart(2, '0');
-        let m = String(date.getUTCMinutes()).padStart(2, '0');
-        let s = String(date.getUTCSeconds()).padStart(2, '0');
-        let ms = String(Math.floor(date.getUTCMilliseconds() / 10)).padStart(2, '0');
-        return `${h}:${m}:${s}.${ms}`;
-    }
-
-    function printTime() {
-        elapsedTime = Date.now() - startTime;
-        display.textContent = formatTime(elapsedTime);
-    }
-
-    window.startStopwatch = function() {
-        if (!isRunning) {
-            startTime = Date.now() - elapsedTime;
-            timerInterval = setInterval(printTime, 10); // Update every 10ms for smooth UI
-            isRunning = true;
-            startBtn.textContent = 'Stop';
-            startBtn.style.background = '#ff9800'; // Orange for Stop
-        } else {
-            clearInterval(timerInterval);
-            isRunning = false;
-            startBtn.textContent = 'Start';
-            startBtn.style.background = '#4CAF50'; // Green for Start
-        }
-    };
-
-    window.resetStopwatch = function() {
-        clearInterval(timerInterval);
-        display.textContent = '00:00:00.00';
-        elapsedTime = 0;
-        isRunning = false;
-        lapCount = 0;
-        startBtn.textContent = 'Start';
-        startBtn.style.background = '#4CAF50';
-        lapsList.innerHTML = '';
-    };
-
-    window.recordLap = function() {
-        if (!isRunning) return;
-        lapCount++;
-        const li = document.createElement('li');
-        li.style.padding = '.5rem 0';
-        li.style.borderBottom = '1px solid #f0f0f0';
-        li.style.display = 'flex';
-        li.style.justifyContent = 'space-between';
-
-        li.innerHTML = `<span>Lap ${lapCount}</span> <strong style="color:#333;">${formatTime(elapsedTime)}</strong>`;
-        lapsList.prepend(li); // Add to top
-    };
-</script>

@@ -1,51 +1,22 @@
 <h1>Playground</h1>
 <div class="tool-container">
     <div class="row">
-        <div class="col" style="flex: 1 1 300px;">
-            <label for="html-input" style="display:block;margin-bottom:.5rem;font-weight:bold;">HTML</label>
-            <textarea id="html-input" rows="5" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:4px;font-family:monospace;margin-bottom:1rem;"></textarea>
+        <div class="col">
+            <label for="html-input">HTML</label>
+            <textarea id="html-input" rows="5"></textarea>
 
-            <label for="css-input" style="display:block;margin-bottom:.5rem;font-weight:bold;">CSS</label>
-            <textarea id="css-input" rows="5" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:4px;font-family:monospace;margin-bottom:1rem;"></textarea>
+            <label for="css-input">CSS</label>
+            <textarea id="css-input" rows="5"></textarea>
 
-            <label for="js-input" style="display:block;margin-bottom:.5rem;font-weight:bold;">JS</label>
-            <textarea id="js-input" rows="5" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:4px;font-family:monospace;margin-bottom:1rem;"></textarea>
+            <label for="js-input">JS</label>
+            <textarea id="js-input" rows="5"></textarea>
 
-            <button onclick="updatePlayground()" style="padding:.5rem 1rem; background:var(--accent); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">Run</button>
+            <button>Run</button>
         </div>
-        <div class="col" style="flex: 1 1 400px; display:flex; flex-direction:column;">
-            <label style="font-weight:bold;margin-bottom:.5rem;">Output</label>
-            <iframe id="playground-output" style="width:100%;flex:1;border:1px solid #ccc;border-radius:4px;background:#fff;"></iframe>
+        <div class="col">
+            <label>Output</label>
+            <iframe id="playground-output"></iframe>
         </div>
     </div>
 </div>
 
-<script>
-    function updatePlayground() {
-        const html = document.getElementById('html-input').value;
-        const css = document.getElementById('css-input').value;
-        const js = document.getElementById('js-input').value;
-        const iframe = document.getElementById('playground-output');
-
-        const code = `
-            <!doctype html>
-            <html>
-                <head>
-                    <style>${css}</style>
-                </head>
-                <body>
-                    ${html}
-                    <script>${js}<\/script>
-                </body>
-            </html>
-        `;
-
-        iframe.srcdoc = code;
-    }
-
-    // Add some initial placeholder code
-    document.getElementById('html-input').value = `<h2>Hello Playground!</h2>\n<p>Edit HTML, CSS, and JS to see changes live.</p>\n<button id="btn">Click me</button>`;
-    document.getElementById('css-input').value = `body {\n  font-family: sans-serif;\n  padding: 1rem;\n}\nbutton {\n  background: #0a74da;\n  color: white;\n  border: none;\n  padding: 0.5rem 1rem;\n  border-radius: 4px;\n  cursor: pointer;\n}`;
-    document.getElementById('js-input').value = `document.getElementById('btn').addEventListener('click', () => {\n  alert('Button clicked!');\n});`;
-    updatePlayground();
-</script>

@@ -1,67 +1,25 @@
 <h1>Code Converter</h1>
 <div class="tool-container">
     <div class="row">
-        <div class="col" style="flex: 1 1 300px;">
-            <label for="code-input" style="display:block;margin-bottom:.5rem;font-weight:bold;">Input Text</label>
-            <textarea id="code-input" rows="10" style="width:100%;padding:.5rem;border:1px solid #ccc;border-radius:4px;font-family:monospace;"></textarea>
-            <div style="margin-top: 1rem; display:flex; gap:.5rem; flex-wrap:wrap;">
-                <button onclick="convertCode('uppercase')" style="padding:.5rem 1rem; background:var(--accent); color:white; border:none; border-radius:4px; cursor:pointer;">UPPERCASE</button>
-                <button onclick="convertCode('lowercase')" style="padding:.5rem 1rem; background:var(--accent); color:white; border:none; border-radius:4px; cursor:pointer;">lowercase</button>
-                <button onclick="convertCode('titlecase')" style="padding:.5rem 1rem; background:var(--accent); color:white; border:none; border-radius:4px; cursor:pointer;">Title Case</button>
-                <button onclick="convertCode('camelcase')" style="padding:.5rem 1rem; background:var(--accent); color:white; border:none; border-radius:4px; cursor:pointer;">camelCase</button>
-                <button onclick="convertCode('snakecase')" style="padding:.5rem 1rem; background:var(--accent); color:white; border:none; border-radius:4px; cursor:pointer;">snake_case</button>
-                <button onclick="document.getElementById('code-input').value='';document.getElementById('code-output').textContent='';" style="padding:.5rem 1rem; background:#ff4d4d; color:white; border:none; border-radius:4px; cursor:pointer;">Clear</button>
+        <div class="col">
+            <label for="code-input">Input Text</label>
+            <textarea id="code-input" rows="10"></textarea>
+            <div>
+                <button>UPPERCASE</button>
+                <button>lowercase</button>
+                <button>Title Case</button>
+                <button>camelCase</button>
+                <button>snake_case</button>
+                <button>Clear</button>
             </div>
         </div>
-        <div class="col" style="flex: 1 1 300px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.5rem;">
-                <label style="font-weight:bold;">Output</label>
-                <button onclick="copyOutput()" id="copy-code-btn" style="padding:.5rem 1rem; background:var(--accent); color:white; border:none; border-radius:4px; cursor:pointer;">Copy</button>
+        <div class="col">
+            <div>
+                <label>Output</label>
+                <button id="copy-code-btn">Copy</button>
             </div>
-            <pre id="code-output" style="width:100%; height:calc(100% - 3rem); min-height:200px; padding:1rem; border:1px solid #ccc; border-radius:4px; background:#f5f5f5; overflow:auto; white-space:pre-wrap; margin:0; font-family:monospace;"></pre>
+            <pre id="code-output"></pre>
         </div>
     </div>
 </div>
 
-<script>
-    function convertCode(type) {
-        const input = document.getElementById('code-input').value;
-        const output = document.getElementById('code-output');
-        if (!input) { output.textContent = ''; return; }
-
-        let result = '';
-        switch(type) {
-            case 'uppercase':
-                result = input.toUpperCase();
-                break;
-            case 'lowercase':
-                result = input.toLowerCase();
-                break;
-            case 'titlecase':
-                result = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-                break;
-            case 'camelcase':
-                result = input.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
-                    return index === 0 ? word.toLowerCase() : word.toUpperCase();
-                }).replace(/\s+/g, '');
-                break;
-            case 'snakecase':
-                result = input.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-                    .map(x => x.toLowerCase())
-                    .join('_');
-                break;
-        }
-        output.textContent = result;
-    }
-
-    function copyOutput() {
-        const btn = document.getElementById('copy-code-btn');
-        const text = document.getElementById('code-output').textContent;
-        if (!text) return;
-        navigator.clipboard.writeText(text).then(() => {
-            const original = btn.textContent;
-            btn.textContent = 'Copied!';
-            setTimeout(() => { btn.textContent = original; }, 2000);
-        });
-    }
-</script>

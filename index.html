@@ -8,13 +8,141 @@
 		<title>BlueTEXT</title>
 		<link rel="icon" href="favicon.ico">
 		<link rel="manifest" href="manifest.json">
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="styles/main.css">
 	</head>
 	<body>
-		<div id="header"><!-- header include -->{header}</div>
+		<div id="header">
+<header>
+				<div class="topbar dev-topbar">
+					<div class="container topbar-inner dev-topbar-inner">
+						<div class="brand">
+							<a href="index.html" class="brand-link"><span class="logo">B</span><span class="brand-name">BlueTEXT</span></a>
+						</div>
+
+						<div class="search-center">
+							<form action="/" method="get" class="search-form center" onsubmit="return false;">
+								<input type="search" name="q" placeholder="Search tools, tutorials..." aria-label="Search" />
+								<button type="submit" aria-label="Search">🔍</button>
+							</form>
+						</div>
+
+						<div class="top-actions">
+							<button id="dark-toggle" aria-label="Toggle dark mode">🌙</button>
+							<a href="contact.html">Contact</a>
+							<a href="apps/">Apps</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="topnav dev-topnav">
+					<div class="container topnav-inner">
+						<nav class="category-nav" aria-label="Primary">
+							<details>
+								<summary>Products ▾</summary>
+								<div class="mega-menu">
+									<div class="mega-inner container">
+										<div class="mega-col">
+											<h4>Platforms</h4>
+											<ul>
+												<li><a href="#">Android</a></li>
+												<li><a href="#">Chrome</a></li>
+												<li><a href="#">Firebase</a></li>
+											</ul>
+										</div>
+										<div class="mega-col">
+											<h4>Tools</h4>
+											<ul>
+												<li><a href="tools/markdown-editor.html">Markdown Editor</a></li>
+												<li><a href="tools/calculator.html">Calculator</a></li>
+												<li><a href="tools/json-formatter.html">JSON Formatter</a></li>
+											</ul>
+										</div>
+										<div class="mega-col">
+											<h4>Integrations</h4>
+											<ul>
+												<li><a href="#">Google Ads</a></li>
+												<li><a href="#">AdMob</a></li>
+											</ul>
+										</div>
+										<div class="mega-col">
+											<h4>Learn</h4>
+											<ul>
+												<li><a href="wiki/">Guides</a></li>
+												<li><a href="blog/">Blog</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</details>
+
+							<details>
+<summary>Apps ▾</summary>
+								<ul class="dropdown-menu">
+									<li><a href="apps/">All Apps</a></li>
+								</ul>
+</details>
+							<details>
+<summary>Tools ▾</summary>
+								<ul class="dropdown-menu">
+									<li><a href="tools/">All Tools</a></li>
+									<li><a href="tools/calculator.html">Calculator</a></li>
+									<li><a href="tools/code-converter.html">Code Converter</a></li>
+									<li><a href="tools/color-picker.html">Color Picker</a></li>
+									<li><a href="tools/github-readme-generator.html">GitHub README Generator</a></li>
+									<li><a href="tools/json-formatter.html">JSON Formatter</a></li>
+									<li><a href="tools/markdown-editor.html">Markdown Editor</a></li>
+									<li><a href="tools/password-generator.html">Password Generator</a></li>
+									<li><a href="tools/playground.html">Playground</a></li>
+									<li><a href="tools/regex-tester.html">Regex Tester</a></li>
+									<li><a href="tools/stopwatch.html">Stopwatch</a></li>
+									<li><a href="tools/timer.html">Timer</a></li>
+									<li><a href="tools/todo-list.html">Todo List</a></li>
+									<li><a href="tools/unit-converter.html">Unit Converter</a></li>
+								</ul>
+</details>
+							<details>
+<summary>Games ▾</summary>
+								<ul class="dropdown-menu">
+									<li><a href="games/">All Games</a></li>
+									<li><a href="games/2048.html">2048</a></li>
+									<li><a href="games/breakout.html">Breakout</a></li>
+									<li><a href="games/connect4.html">Connect 4</a></li>
+									<li><a href="games/guess-number.html">Guess Number</a></li>
+									<li><a href="games/memory.html">Memory</a></li>
+									<li><a href="games/minesweeper.html">Minesweeper</a></li>
+									<li><a href="games/rock-paper-scissors.html">Rock Paper Scissors</a></li>
+									<li><a href="games/snake.html">Snake</a></li>
+									<li><a href="games/tictactoe.html">Tic Tac Toe</a></li>
+								</ul>
+</details>
+							<details>
+<summary>Blog ▾</summary>
+								<ul class="dropdown-menu">
+									<li><a href="blog/">Latest Posts</a></li>
+								</ul>
+</details>
+							<a href="resources.html">Resources</a>
+							<details>
+<summary>Guides ▾</summary>
+								<ul class="dropdown-menu">
+									<li><a href="wiki/">All Guides</a></li>
+									<li><a href="wiki/css-guide.html">CSS Guide</a></li>
+									<li><a href="wiki/git-guide.html">Git Guide</a></li>
+									<li><a href="wiki/html-guide.html">HTML Guide</a></li>
+									<li><a href="wiki/js-guide.html">JS Guide</a></li>
+									<li><a href="wiki/webapi-guide.html">Web API Guide</a></li>
+								</ul>
+</details>
+							<details>
+<summary>Shop ▾</summary>
+								<ul class="dropdown-menu">
+									<li><a href="shop/">Store</a></li>
+								</ul>
+</details>
+						</nav>
+					</div>
+				</div>
+</header>
+		</div>
 			<main class="container">
 				<h1>BlueTEXT Home</h1>
 				<p class="lead">A collection of web tools, apps and resources — mobile and desktop friendly.</p>
@@ -46,12 +174,13 @@
 						</article>
 					</section>
 			</main>
-		<div id="footer">{footer}</div>
-
-			<!-- Include injection (tries several relative paths) -->
-			<script src="scripts/includes.js" defer></script>
-			<script src="scripts/nav.js" defer></script>
-			<script src="scripts/router.js" defer></script>
-			<script src="scripts/main.js" defer></script>
+		<div id="footer">
+<footer>
+	<div class="container">
+		<p>Footer placeholder</p>
+		<small>&copy; <span id="year"></span> BlueTEXT</small>
+	</div>
+</footer>
+		</div>
 	</body>
 </html>
